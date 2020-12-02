@@ -1,0 +1,59 @@
+body {
+  font-family: "Open Sans", sans-serif;
+  line-height: 1.25;
+}
+
+table {
+  border-collapse: collapse;
+  margin: 0 auto;
+  padding: 0;
+  width: 400px;
+  box-shadow: 0 0 15px -6px #00000073;
+  table-layout: fixed;
+}
+
+div.expl {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+div.feat-table {
+    //flex-grow: 1;
+}
+
+
+table tr {
+  background-color: #fff;
+}
+
+table tbody tr:hover{
+  background-color: #fffae9;
+}
+table th, table td, tbody td {
+  font-size: .7em;
+  padding: .35em .7em;
+  border-bottom: 1px solid #eee;
+  text-align: center;
+}
+table thead th {
+    font-size: .8em;
+    padding: .5em;
+    text-align: center;
+}
+table thead.posi tr{
+  background-color: #FF5000;
+  color:#fff;
+}
+table thead.nega tr{
+  background-color: #0050FF;
+  color:#fff;
+}
+
+table tbody th {
+  text-align: center;
+  font-size: .8em;
+}
+
+span.explFeat {
+    color:#ff9;
+}

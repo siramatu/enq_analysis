@@ -1,0 +1,14 @@
+function read(json_file) {
+    $.getJSON(json_file, function(data) {
+	console.log(data);
+    })
+
+}
+
+$(function(){
+    read("./js/student.json");
+    
+    $("div#teacher").click(function(){
+	// FIXME
+    });
+});
