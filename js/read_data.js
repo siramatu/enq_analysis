@@ -13,10 +13,10 @@ function getCorrStr(corrData) {
 
 function appendHeader(table, explFeat, pol) {
     
-    let thead = $("<thead>", { class: getPolarity(expFeat, pol) }).appendTo(table);
+    let thead = $("<thead>", { class: getPolarity(explFeat, pol) }).appendTo(table);
     
     let featHeader = "<th width=\"70%\">";
-    featHeader += "<span class=\""+getPolarity(expFeat, "posi")+"\">";
+    featHeader += "<span class=\""+getPolarity(explFeat, "posi")+"\">";
     heatHeader += explFeat + "</span> と";
     featHeader += (pol == "posi") ? "正" : "負";
     featHeader += "の相関があった回答</th>";
