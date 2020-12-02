@@ -27,7 +27,7 @@ function createTable(parent, data, explFeat, pol) {
 	let tbody = $("<tbody>").appendTo(table);
 	for (let feat in data) {
 		//console.log(feat);
-		let tr = $("<tr>").appendTo(tbody);
+		let tr = $("<tr title>").appendTo(tbody);
 		tr.append("<td class=\"feat\" data-label=\"" + feat + "\">" + feat + "</td>");
 		tr.append("<td>" + getCorrStr(data[feat]) + "</td>");
 	}
@@ -40,14 +40,11 @@ function createTable(parent, data, explFeat, pol) {
 		$.getJSON(textJson, function (data) {
 			label2texts[label] = data;
 			//console.log("data: "+JSON.stringify(data));
-			for (let tr in $(table).find("tbody tr")) {
-				let feat = $(tr).find("td.feat").attr("data-label");
-				setTooltip(tr, data[feat]);
-				$(tr).tooltip({
-					show: false,
-					hide: false
-				});
-			}
+			table.find("tbody tr").each(function (index, element) {
+				let feat = $(element).find("td.feat").attr("data-label");
+				// console.log(element)
+				setTooltip(element, data[feat]);
+			})
 
 		}.bind(table));
 	}
@@ -64,14 +61,45 @@ function setTooltip(elm, data) {
 			//console.log("!!!! dic: "+JSON.stringify(dic));
 			text += data[i]["text"];
 			text += "<br />";
+			break;
 		}
 	}
+
+	// console.log(elm)
 	$(elm).tooltip({
 		content: function () {
 			return text
 		}
 	});
+
 	//console.log("text: "+ text);
+}
+
+function creatPieChart(canvas, data) {
+	if (data != null) {
+		let ctx = canvas.getContext('2d');
+
+		var chart = new Chart(ctx, {
+			type: 'pie',
+			data: {
+				datasets: [{
+					backgroundColor: [
+						"#f4d002",
+						"#80c686",
+						"#ffff51",
+						"#005193",
+						"#002a65"
+					],
+					data: data["data"]
+				}],
+				labels: data["labels"]
+			},
+			options: {
+				responsive: true,
+			}
+		});
+
+	}
 }
 
 function read(json_file) {
@@ -80,6 +108,11 @@ function read(json_file) {
 		for (let explFeat in data) {
 			console.log(explFeat);
 			$("#student").append("<h4>" + explFeat + "</h4>");
+
+			let pieCanvas = $('<canvas></canvas>');
+			$("#student").append(pieCanvas);
+			creatPieChart(pieCanvas[0], data[explFeat]["freq"]);
+
 			let explDiv = $("<div>", {
 				class: "expl"
 			}).appendTo('#student');
@@ -102,6 +135,4 @@ function read(json_file) {
 
 $(function () {
 	read("./js/student.json");
-
-
 });

@@ -15,13 +15,14 @@ table {
 div.expl {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 }
 
-div.feat-table {
-    //flex-grow: 1;
-}
+/* div.feat-table {
+    flex-grow: 1;
+} */
 
-
+h4{text-align:center;}
 table tr {
   background-color: #fff;
 }
@@ -56,4 +57,11 @@ table tbody th {
 
 span.explFeat {
     color:#ff9;
+}
+
+canvas {
+  height: auto !important;
+  max-width: 400px !important;
+  padding-bottom: 15px;
+  margin: auto;
 }
