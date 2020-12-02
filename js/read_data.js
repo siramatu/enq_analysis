@@ -17,7 +17,7 @@ function appendHeader(table, explFeat, pol) {
     
     let featHeader = "<th width=\"70%\">";
     featHeader += "<span class=\""+getPolarity(explFeat, "posi")+"\">";
-    heatHeader += explFeat + "</span> と";
+    featHeader += explFeat + "</span> と";
     featHeader += (pol == "posi") ? "正" : "負";
     featHeader += "の相関があった回答</th>";
     let corHeader = "<th width=\"30%\">";
