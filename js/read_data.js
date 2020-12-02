@@ -61,7 +61,6 @@ function setTooltip(elm, data) {
 			//console.log("!!!! dic: "+JSON.stringify(dic));
 			text += data[i]["text"];
 			text += "<br />";
-			break;
 		}
 	}
 
