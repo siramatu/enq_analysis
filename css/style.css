@@ -1,5 +1,5 @@
 body {
-  font-family: "Open Sans", sans-serif;
+>  font-family: "Open Sans", sans-serif;
   line-height: 1.25;
 }
 
@@ -62,7 +62,7 @@ span.explFeat {
 div.reldesc {
     overflow-y: scroll;
     font-size: .6em;
-    height: 500px;
+    height: 350px;
 }
 
 canvas {
