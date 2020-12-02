@@ -60,9 +60,9 @@ span.explFeat {
 }
 
 div.reldesc {
-    overflow-y: scroll;
-    font-size: .6em;
-    height: 350px;
+  overflow-y: scroll;
+  font-size: .6em;
+  max-height: 400px;
 }
 
 canvas {
