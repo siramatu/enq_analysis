@@ -16,7 +16,7 @@ function appendHeader(table, explFeat, pol) {
 	let featHeader = "<span class=\"explFeat\">" + explFeat + "</span> と";
 	featHeader += (pol == "posi") ? "正" : "負";
 	featHeader += "の相関があった回答";
-	$("<tr>").appendTo(thead).append("<th width=\"70%\">" + featHeader + "</th><th width=\"30%\">相関係数</th>");
+	$("<tr>").appendTo(thead).append("<th width=\"70%\">" + featHeader + "</th><th width=\"30%\">相関係数<br />95%信頼区間</th>");
 
 }
 
