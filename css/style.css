@@ -65,6 +65,10 @@ div.reldesc {
   max-height: 400px;
 }
 
+span.confint {
+  font-size: .55em;
+}
+
 canvas {
   height: auto !important;
   max-width: 400px !important;

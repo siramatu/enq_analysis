@@ -7,16 +7,19 @@ function addPlus(val) {
 }
 
 function getCorrStr(corrData) {
-	return addPlus(corrData["r"]) + "<br />[" +
-		addPlus(corrData["rl"]) + ", " + addPlus(corrData["ru"]) + "]";
+    return addPlus(corrData["r"]) + "<br /><span class=\"confint\">[" +
+	addPlus(corrData["rl"]) + ", " + addPlus(corrData["ru"]) + "]</span>";
 }
 
 function appendHeader(table, explFeat, pol) {
-	let thead = $("<thead>", { class: pol }).appendTo(table);
-	let featHeader = "<span class=\"explFeat\">" + explFeat + "</span> と";
-	featHeader += (pol == "posi") ? "正" : "負";
-	featHeader += "の相関があった回答";
-	$("<tr>").appendTo(thead).append("<th width=\"70%\">" + featHeader + "</th><th width=\"30%\">相関係数<br />95%信頼区間</th>");
+    let thead = $("<thead>", { class: pol }).appendTo(table);
+    let featHeader = "<th width=\"70%\">";
+    featHeader += "<span class=\"explFeat\">" + explFeat + "</span> と";
+    featHeader += (pol == "posi") ? "正" : "負";
+    featHeader += "の相関があった回答</th>";
+    let corHeader = "<th width=\"30%\">";
+    corHeader += "相関係数<br /><span class=\"confint\">95%信頼区間</span></th>";
+    $("<tr>").appendTo(thead).append(featHeader + corHeader);
 
 }
 
