@@ -56,7 +56,11 @@ table tbody th {
 }
 
 span.explFeat {
-    color:#ff9;
+  color:#ff9;
+}
+
+span.small {
+    font-size: .7em;
 }
 
 canvas {

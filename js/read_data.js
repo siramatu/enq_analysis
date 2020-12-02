@@ -21,57 +21,59 @@ function appendHeader(table, explFeat, pol) {
 }
 
 function createTable(parent, data, explFeat, pol) {
-	let table = $("<table>").appendTo(parent);
-	let enqTarget = $(parent).parents(".enq-target").attr("id");
-	appendHeader(table, explFeat, pol);
-	let tbody = $("<tbody>").appendTo(table);
-	for (let feat in data) {
-		//console.log(feat);
-		let tr = $("<tr title>").appendTo(tbody);
-		tr.append("<td class=\"feat\" data-label=\"" + feat + "\">" + feat + "</td>");
-		tr.append("<td>" + getCorrStr(data[feat]) + "</td>");
-	}
-
-	let label = $(parent).attr("data-label");
-	//console.log(label);
-	if (label2texts[label] == null) {
-		let textJson = "./js/" + enqTarget + "-" + explFeat + "-" + pol + ".json";
-		//console.log(textJson);
-		$.getJSON(textJson, function (data) {
-			label2texts[label] = data;
-			//console.log("data: "+JSON.stringify(data));
-			table.find("tbody tr").each(function (index, element) {
-				let feat = $(element).find("td.feat").attr("data-label");
-				// console.log(element)
-				setTooltip(element, data[feat]);
-			})
-
-		}.bind(table));
-	}
+    let table = $("<table>").appendTo(parent);
+    let enqTarget = $(parent).parents(".enq-target").attr("id");
+    appendHeader(table, explFeat, pol);
+    let tbody = $("<tbody>").appendTo(table);
+    for (let feat in data) {
+	//console.log(feat);
+	let tr = $("<tr title>").appendTo(tbody);
+	tr.append("<td class=\"feat\" data-label=\"" + feat + "\">" + feat + "</td>");
+	tr.append("<td>" + getCorrStr(data[feat]) + "</td>");
+    }
+    
+    let label = $(parent).attr("data-label");
+    //console.log(label);
+    if (label2texts[label] == null) {
+	let textJson = "./js/" + enqTarget + "-" + explFeat + "-" + pol + ".json";
+	//console.log(textJson);
+	$.getJSON(textJson, function (data) {
+	    label2texts[label] = data;
+	    //console.log("data: "+JSON.stringify(data));
+	    table.find("tbody tr").each(function (index, element) {
+		let feat = $(element).find("td.feat").attr("data-label");
+		// console.log(element)
+		setTooltip(element, data[feat]);
+	    })
+	    
+	}.bind(table));
+    }
 }
 
 
 function setTooltip(elm, data) {
-	let text = "";
-	if (data == null) {
-		text = "（対応する自由記述はありません）";
-	} else {
-		//console.log("!!!! data: "+JSON.stringify(data));
-		for (let i in data) {
-			//console.log("!!!! dic: "+JSON.stringify(dic));
-			text += data[i]["text"];
-			text += "<br />";
-		}
+    let text = "";
+    if (data == null) {
+	text = "<span class=\"small\">（対応する自由記述はありません）</span>";
+    } else {
+	//console.log("!!!! data: "+JSON.stringify(data));
+	for (let i in data) {
+	    //console.log("!!!! dic: "+JSON.stringify(dic));
+	    text += data[i]["text"];
+	    text += "<hr />";
 	}
-
-	// console.log(elm)
-	$(elm).tooltip({
-		content: function () {
-			return text
-		}
-	});
-
-	//console.log("text: "+ text);
+	text = "<span class=\"small\">" + text + "</span>";
+	
+    }
+    
+    // console.log(elm)
+    $(elm).tooltip({
+	content: function () {
+	    return text
+	}
+    });
+    
+    //console.log("text: "+ text);
 }
 
 function creatPieChart(canvas, data) {
