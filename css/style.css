@@ -60,7 +60,7 @@ span.explFeat {
 }
 
 div.reldesc {
-    overflow: scroll;
+    overflow-y: scroll;
     font-size: .6em;
 }
 
