@@ -59,7 +59,8 @@ span.explFeat {
   color:#ff9;
 }
 
-span.small {
+div.reldesc {
+    overflow: scroll;
     font-size: .6em;
 }
 

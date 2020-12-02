@@ -54,15 +54,16 @@ function createTable(parent, data, explFeat, pol) {
 function setTooltip(elm, data) {
     let text = "";
     if (data == null) {
-	text = "<span class=\"small\">（対応する自由記述はありません）</span>";
+	text = "<div class=\"reldesc\">（対応する自由記述はありません）</span>";
     } else {
 	//console.log("!!!! data: "+JSON.stringify(data));
 	for (let i in data) {
-	    //console.log("!!!! dic: "+JSON.stringify(dic));
+	    if (i > 0) {
+		text += "<hr />";
+	    }
 	    text += data[i]["text"];
-	    text += "<hr />";
 	}
-	text = "<span class=\"small\">" + text + "</span>";
+	text = "<div class=\"reldesc\">" + text + "</span>";
 	
     }
     
