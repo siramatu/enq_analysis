@@ -55,8 +55,12 @@ table tbody th {
   font-size: .8em;
 }
 
-span.explFeat {
-  color:#ff9;
+span.posi {
+  color:#ffa;
+}
+
+span.nega {
+  color:#aff;
 }
 
 div.reldesc {

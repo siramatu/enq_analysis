@@ -12,15 +12,31 @@ function getCorrStr(corrData) {
 }
 
 function appendHeader(table, explFeat, pol) {
-    let thead = $("<thead>", { class: pol }).appendTo(table);
+    
+    let thead = $("<thead>", { class: getPolarity(expFeat, pol) }).appendTo(table);
+    
     let featHeader = "<th width=\"70%\">";
-    featHeader += "<span class=\"explFeat\">" + explFeat + "</span> と";
+    featHeader += "<span class=\""+getPolarity(expFeat, "posi")+"\">";
+    heatHeader += explFeat + "</span> と";
     featHeader += (pol == "posi") ? "正" : "負";
     featHeader += "の相関があった回答</th>";
     let corHeader = "<th width=\"30%\">";
     corHeader += "相関係数<br /><span class=\"confint\">95%信頼区間</span></th>";
     $("<tr>").appendTo(thead).append(featHeader + corHeader);
 
+}
+
+function getPolarity(explFeat, pol) {
+    let context = (pol == "posi") ? 1 : -1;
+    let expl = 1;
+    if (explFeat.indexOf("（悪かったこと）") > 0 || explFeat.indexOf("特にない") >= 0) {
+	expl = -1;
+    }
+    if (expl * context > 0) {
+	return "posi";
+    } else {
+	return "nega";
+    }
 }
 
 function createTable(parent, data, explFeat, pol) {
