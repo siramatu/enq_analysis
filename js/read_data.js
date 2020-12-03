@@ -104,7 +104,8 @@ function setTooltip(elm, data) {
 	    $("tr.showingTooltip").removeClass("showingTooltip");
 	});
     }.bind(elm));
-    $("div.feat-table").on("click", function(e) {
+    //$("div.feat-table").on("click", function(e) {
+    $("table").on("click", function(e) {
         e.stopImmediatePropagation();
     });
     $("div.container").on("click", function(e) {
