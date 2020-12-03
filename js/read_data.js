@@ -49,8 +49,7 @@ function createTable(parent, data, explFeat, pol) {
 	let tr = $("<tr title>").appendTo(tbody);
 	tr.append("<td class=\"feat\" data-label=\"" + feat + "\">" + feat + "</td>");
 	tr.append("<td>" + getCorrStr(data[feat]) + "</td>");
-    }
-    
+    }    
     let label = $(parent).attr("data-label");
     //console.log(label);
     if (label2texts[label] == null) {
@@ -59,12 +58,11 @@ function createTable(parent, data, explFeat, pol) {
 	$.getJSON(textJson, function (data) {
 	    label2texts[label] = data;
 	    //console.log("data: "+JSON.stringify(data));
-	    table.find("tbody tr").each(function (index, element) {
-		let feat = $(element).find("td.feat").attr("data-label");
-		// console.log(element)
-		setTooltip(element, data[feat]);
-	    })
-	    
+	    table.find("tbody tr").each(function (index, elm) {
+		let feat = $(elm).find("td.feat").attr("data-label");
+		// console.log(elm)
+		setTooltip(elm, data[feat]);
+	    });
 	}.bind(table));
     }
 }
@@ -82,17 +80,30 @@ function setTooltip(elm, data) {
 	    }
 	    text += data[i]["text"];
 	}
-	text = "<div class=\"reldesc\">" + text + "</span>";
-	
+	text = "<div class=\"reldesc\">" + text + "</span>";	
     }
-    
-    // console.log(elm)
     $(elm).tooltip({
 	content: function () {
-	    return text
-	}
+	    return text;
+	},
+	open: function() {
+	    $(elm).addClass("showingTooltip");
+	}.bind(elm)
     });
-    
+    $(elm).on("mouseout", function(e) {
+        e.stopImmediatePropagation();
+    }).on("mouseleave", function(e) {
+        e.stopImmediatePropagation();
+    }).on("tooltipopen", function(e) {
+	$("tr.showingTooltip").not($(elm)).tooltip("close");
+    }.bind(elm));
+    $("body").on("mouseleave", ".ui-tooltip", function(e) {
+	$(elm).tooltip("close");
+	$(elm).removeClass("showingTooltip");
+    }.bind(elm)).on("mouseclick", function(e) {
+	$(elm).tooltip("close");
+	$(elm).removeClass("showingTooltip");
+    }.bind(elm));
     //console.log("text: "+ text);
 }
 
