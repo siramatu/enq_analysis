@@ -90,21 +90,27 @@ function setTooltip(elm, data) {
 	    $(elm).addClass("showingTooltip");
 	}.bind(elm)
     });
-    $(elm).on("mouseout", function(e) {
+    $(elm).on("click", function(e) {
+	$(elm).tooltip();
+	$(elm).addClass("showingTooltip");
+    }.bind(elm)).on("mouseout", function(e) {
         e.stopImmediatePropagation();
     }).on("mouseleave", function(e) {
         e.stopImmediatePropagation();
     }).on("tooltipopen", function(e) {
 	$("tr.showingTooltip").not($(elm)).tooltip("close");
+	$("div.ui-tooltip").on("mouseleave", function(e) {
+	    $("tr.showingTooltip").tooltip("close");
+	    $("tr.showingTooltip").removeClass("showingTooltip");
+	});
     }.bind(elm));
-    $("body").on("mouseleave", ".ui-tooltip", function(e) {
+    $("div.feat-table").on("click", function(e) {
+        e.stopImmediatePropagation();
+    });
+    $("div.container").on("click", function(e) {
 	$(elm).tooltip("close");
 	$(elm).removeClass("showingTooltip");
-    }.bind(elm)).on("mouseclick", function(e) {
-	$(elm).tooltip("close");
-	$(elm).removeClass("showingTooltip");
     }.bind(elm));
-    //console.log("text: "+ text);
 }
 
 function creatPieChart(canvas, data) {
