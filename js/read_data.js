@@ -27,7 +27,11 @@ function appendHeader(table, explFeat, pol) {
 function getPolarity(explFeat, pol) {
     let context = (pol == "posi") ? 1 : -1;
     let expl = 1;
-    if (explFeat.indexOf("（悪かったこと）") > 0 || explFeat.indexOf("特にない") >= 0) {
+    if (explFeat.indexOf("（悪かったこと）") > 0 ||
+	explFeat.indexOf("特にない") >= 0 ||
+	explFeat.indexOf("（オンデマンド授業の欠点）") > 0 ||
+	explFeat.indexOf("特になし") >= 0)
+    {
 	expl = -1;
     }
     if (expl * context > 0) {
