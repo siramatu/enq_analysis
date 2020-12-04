@@ -11,19 +11,17 @@ function getCorrStr(corrData) {
 	addPlus(corrData["rl"]) + ", " + addPlus(corrData["ru"]) + "]</span>";
 }
 
-function appendHeader(table, explFeat, pol) {
-    
+function appendHeader(table, explFeat, pol) {    
     let thead = $("<thead>", { class: getPolarity(explFeat, pol) }).appendTo(table);
-    
-    let featHeader = "<th width=\"70%\">";
+    let numbHeader = "<th width=\"12%\"></th>";
+    let featHeader = "<th width=\"62%\">";
     featHeader += "<span class=\""+getPolarity(explFeat, "posi")+"\">";
     featHeader += explFeat + "</span> と";
     featHeader += (pol == "posi") ? "正" : "負";
     featHeader += "の相関があった回答</th>";
-    let corHeader = "<th width=\"30%\">";
+    let corHeader = "<th width=\"26%\">";
     corHeader += "相関係数<br /><span class=\"confint\">95%信頼区間</span></th>";
-    $("<tr>").appendTo(thead).append(featHeader + corHeader);
-
+    $("<tr>").appendTo(thead).append(numbHeader + featHeader + corHeader);
 }
 
 function getPolarity(explFeat, pol) {
@@ -39,17 +37,21 @@ function getPolarity(explFeat, pol) {
     }
 }
 
-function createTable(parent, data, explFeat, pol) {
+function createTable(parent, data, explFeat, pol, i) {
     let table = $("<table>").appendTo(parent);
     let enqTarget = $(parent).parents(".enq-target").attr("id");
     appendHeader(table, explFeat, pol);
     let tbody = $("<tbody>").appendTo(table);
+    let j = 1;
     for (let feat in data) {
 	//console.log(feat);
+	let number = i + "." + j + ((pol == "posi") ? "+" : "-");
 	let tr = $("<tr title>").appendTo(tbody);
+	tr.append("<td>"+number+"</td>");
 	tr.append("<td class=\"feat\" data-label=\"" + feat + "\">" + feat + "</td>");
 	tr.append("<td>" + getCorrStr(data[feat]) + "</td>");
-    }    
+	j++;
+    }
     let label = $(parent).attr("data-label");
     //console.log(label);
     if (label2texts[label] == null) {
@@ -140,34 +142,36 @@ function creatPieChart(canvas, data) {
 }
 
 function read(json_file) {
-	$.getJSON(json_file, function (data) {
-		//console.log(data);
-		for (let explFeat in data) {
-			console.log(explFeat);
-			$("#student").append("<h4>" + explFeat + "</h4>");
-
-			let pieCanvas = $('<canvas></canvas>');
-			$("#student").append(pieCanvas);
-			creatPieChart(pieCanvas[0], data[explFeat]["freq"]);
-
-			let explDiv = $("<div>", {
-				class: "expl"
-			}).appendTo('#student');
-			let posiDiv = $("<div>", {
-				class: "feat-table"
-			}).appendTo(explDiv);
-			posiDiv.attr("data-label", explFeat + "-posi");
-			let negaDiv = $("<div>", {
-				class: "feat-table"
-			}).appendTo(explDiv);
-			negaDiv.attr("data-label", explFeat + "-nega");
-			let posi = data[explFeat]["posi"];
-			createTable(posiDiv, posi, explFeat, "posi");
-			let nega = data[explFeat]["nega"];
-			createTable(negaDiv, nega, explFeat, "nega");
-		}
-	});
-
+    $.getJSON(json_file, function (data) {
+	//console.log(data);
+	let i = 1;
+	for (let explFeat in data) {
+	    console.log(explFeat);
+	    $("#student").append("<h4>" + i + ". " + explFeat + "</h4>");
+	    
+	    let pieCanvas = $('<canvas></canvas>');
+	    $("#student").append(pieCanvas);
+	    creatPieChart(pieCanvas[0], data[explFeat]["freq"]);
+	    
+	    let explDiv = $("<div>", {
+		class: "expl"
+	    }).appendTo('#student');
+	    let posiDiv = $("<div>", {
+		class: "feat-table"
+	    }).appendTo(explDiv);
+	    posiDiv.attr("data-label", explFeat + "-posi");
+	    let negaDiv = $("<div>", {
+		class: "feat-table"
+	    }).appendTo(explDiv);
+	    negaDiv.attr("data-label", explFeat + "-nega");
+	    let posi = data[explFeat]["posi"];
+	    createTable(posiDiv, posi, explFeat, "posi", i);
+	    let nega = data[explFeat]["nega"];
+	    createTable(negaDiv, nega, explFeat, "nega", i);
+	    i++;
+	}
+    });
+    
 }
 
 $(function () {
