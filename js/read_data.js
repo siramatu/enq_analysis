@@ -50,6 +50,7 @@ function createTable(parent, data, explFeat, pol, i) {
 	tr.append("<td>"+number+"</td>");
 	tr.append("<td class=\"feat\" data-label=\"" + feat + "\">" + feat + "</td>");
 	tr.append("<td>" + getCorrStr(data[feat]) + "</td>");
+	tr.attr("data-number", number);
 	j++;
     }
     let label = $(parent).attr("data-label");
@@ -71,7 +72,9 @@ function createTable(parent, data, explFeat, pol, i) {
 
 
 function setTooltip(elm, data, feat) {
-    let text = "<div class=\"tooltip-head\"><strong>"+feat+"</strong>に対応する自由記述</div>";
+    let number = $(elm).attr("data-number");
+    let head = "<div class=\"tooltip-head\">"+number+" <strong>"+feat+"</strong>に対応する自由記述</div>";
+    let text = "";
     if (data.length == 0) {
 	text = "<hr /><div class=\"reldesc\">（対応する自由記述はありません）</span>";
     } else {
@@ -80,7 +83,7 @@ function setTooltip(elm, data, feat) {
 	    text += "<hr />";
 	    text += data[i]["text"];
 	}
-	text = "<div class=\"reldesc\">" + text + "</span>";	
+	text = head + "<div class=\"reldesc\">" + text + "</span>";	
     }
     $(elm).tooltip({
 	content: function () {
