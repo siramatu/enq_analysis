@@ -69,7 +69,7 @@ function createTable(parent, data, explFeat, pol) {
 
 
 function setTooltip(elm, data, feat) {
-    let text = "<h5><strong>"+feat+"</strong>に対応する自由記述</h5>";
+    let text = "<div class=\"tooltip-head\"><strong>"+feat+"</strong>に対応する自由記述</div>";
     if (data.length == 0) {
 	text = "<hr /><div class=\"reldesc\">（対応する自由記述はありません）</span>";
     } else {

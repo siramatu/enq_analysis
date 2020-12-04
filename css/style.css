@@ -1,5 +1,5 @@
 body {
->  font-family: "Open Sans", sans-serif;
+  font-family: "Open Sans", sans-serif;
   line-height: 1.25;
 }
 
@@ -71,6 +71,11 @@ div.reldesc {
 
 span.confint {
   font-size: .55em;
+}
+
+div.tooltip-head {
+    color: #fff;
+    background-color: #060;    
 }
 
 canvas {
