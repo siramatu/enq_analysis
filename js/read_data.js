@@ -70,7 +70,7 @@ function createTable(parent, data, explFeat, pol) {
 
 function setTooltip(elm, data) {
     let text = "";
-    if (data == null) {
+    if (data.length == 0) {
 	text = "<div class=\"reldesc\">（対応する自由記述はありません）</span>";
     } else {
 	//console.log("!!!! data: "+JSON.stringify(data));
