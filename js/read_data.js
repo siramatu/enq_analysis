@@ -144,21 +144,23 @@ function creatPieChart(canvas, data) {
 	}
 }
 
-function read(json_file) {
+function read(target) {
+    let json_file = "js/"+target+".json";
     $.getJSON(json_file, function (data) {
 	//console.log(data);
-	let i = 1;
+	let i = $("div.toc").attr("data-i");
 	for (let explFeat in data) {
 	    console.log(explFeat);
-	    $("#student").append("<h4>" + i + ". " + explFeat + "</h4>");
-	    
+	    $("#"+target).append("<a name=\""+i+"\" />");
+	    $("#"+target).append("<h4>" + i + ". " + explFeat + "</h4>");
+	    $("ul#"+target+"-list").append("<li><a href=\"#"+i+"\">"+i+". " + explFeat + "</a></li>");
 	    let pieCanvas = $('<canvas></canvas>');
-	    $("#student").append(pieCanvas);
+	    $("#"+target).append(pieCanvas);
 	    creatPieChart(pieCanvas[0], data[explFeat]["freq"]);
 	    
 	    let explDiv = $("<div>", {
 		class: "expl"
-	    }).appendTo('#student');
+	    }).appendTo("#"+target);
 	    let posiDiv = $("<div>", {
 		class: "feat-table"
 	    }).appendTo(explDiv);
@@ -172,11 +174,13 @@ function read(json_file) {
 	    let nega = data[explFeat]["nega"];
 	    createTable(negaDiv, nega, explFeat, "nega", i);
 	    i++;
+	    $("div.toc").attr("data-i", i);
 	}
     });
-    
 }
 
 $(function () {
-	read("./js/student.json");
+    $("div.toc").attr("data-i", 1);
+    read("student");
+    read("teacher");
 });
