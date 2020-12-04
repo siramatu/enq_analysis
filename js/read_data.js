@@ -61,23 +61,21 @@ function createTable(parent, data, explFeat, pol) {
 	    table.find("tbody tr").each(function (index, elm) {
 		let feat = $(elm).find("td.feat").attr("data-label");
 		// console.log(elm)
-		setTooltip(elm, data[feat]);
+		setTooltip(elm, data[feat], feat);
 	    });
 	}.bind(table));
     }
 }
 
 
-function setTooltip(elm, data) {
-    let text = "";
+function setTooltip(elm, data, feat) {
+    let text = "<strong>"+feat+"</strong>に対応する自由記述";
     if (data.length == 0) {
-	text = "<div class=\"reldesc\">（対応する自由記述はありません）</span>";
+	text = "<hr /><div class=\"reldesc\">（対応する自由記述はありません）</span>";
     } else {
 	//console.log("!!!! data: "+JSON.stringify(data));
 	for (let i in data) {
-	    if (i > 0) {
-		text += "<hr />";
-	    }
+	    text += "<hr />";
 	    text += data[i]["text"];
 	}
 	text = "<div class=\"reldesc\">" + text + "</span>";	
