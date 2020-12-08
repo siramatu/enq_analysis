@@ -97,3 +97,7 @@ canvas {
   padding-bottom: 15px;
   margin: auto;
 }
+
+p.instruction {
+    color: #900;
+}
