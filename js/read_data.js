@@ -148,7 +148,7 @@ function creatPieChart(canvas, data) {
 	}
 }
 
-function read(target) {
+function read(target, d) {
     let json_file = "js/"+target+".json";
     $.getJSON(json_file, function (data) {
 	//console.log(data);
@@ -180,11 +180,18 @@ function read(target) {
 	    i++;
 	    $("div.toc").attr("data-i", i);
 	}
+	if (d) {
+	    d.resolve();
+	}
     });
 }
 
 $(function () {
     $("div.toc").attr("data-i", 1);
-    read("student");
-    read("teacher");
+    let d = new $.Deferred();
+    read("student", d);
+    d.promise().then(function() {
+	read("teacher");
+    });
+
 });
